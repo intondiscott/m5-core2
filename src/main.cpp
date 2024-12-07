@@ -48,7 +48,7 @@ void my_disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *color_p)
  */
 void screen_update(lv_timer_t *timer)
 {
-    
+    //make time struct
     RTC_TimeTypeDef time_t;
     uint8_t battery_percentage = m5.Axp.GetBatteryLevel();
     lv_obj_t *main_screen,
@@ -83,9 +83,7 @@ void screen_update(lv_timer_t *timer)
       time_t.Hours>12?time_t.Hours-12:time_t.Hours, 
       time_t.Minutes, 
       time_t.Seconds,
-      time_t.Hours >= 12? "PM":"AM");
-    
-    
+      time_t.Hours >= 12? "PM":"AM");   
 }
 
 void drawUI(){
