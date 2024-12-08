@@ -10,8 +10,21 @@ M5Display tft;
 const int SCREEN_WIDTH = 320;
 const int SCREEN_HEIGHT = 240;
 unsigned long lastTickMillis = 0;
-char *bat = (char*)malloc(sizeof(char));
+
  
+struct {
+          lv_obj_t 
+              *main_screen,
+              *nav_screen,
+              *battery_label,
+              *datetime_label,
+              *bat_img,
+              *low_bat_img,
+              *button_text,
+              *charging_img,
+              *settings_icon;
+          char *bat = (char*)malloc(sizeof(char));
+} M5DisplayUI;   
 void my_touch_read(lv_indev_t *indev_driver,lv_indev_data_t *data)
 {
   uint16_t touchX, touchY;
@@ -54,60 +67,64 @@ void screen_update(lv_timer_t *timer)
     //make time struct
     RTC_TimeTypeDef time_t;
     uint8_t battery_percentage = m5.Axp.GetBatteryLevel();
-    lv_obj_t *main_screen,
-             *nav_screen,
-             *battery_label,
-             *datetime_label,
-             *bat_img,
-             *low_bat_img,
-             *charging_img;
+    
 
-    main_screen = lv_obj_create(lv_screen_active()); 
-    nav_screen = lv_obj_create(main_screen);
+    M5DisplayUI.main_screen = lv_obj_create(lv_screen_active()); 
+    M5DisplayUI.nav_screen = lv_obj_create(M5DisplayUI.main_screen);
     LV_IMAGE_DECLARE(battery_icon);
     LV_IMAGE_DECLARE(low_battery);
     LV_IMAGE_DECLARE(charging);
-    lv_obj_set_size(main_screen,SCREEN_WIDTH,SCREEN_HEIGHT);
-    lv_obj_center(main_screen);
-    lv_obj_set_flex_flow(main_screen,LV_FLEX_FLOW_ROW);
-    lv_obj_set_height(nav_screen,30);
-    lv_obj_set_flex_grow(nav_screen,1);
-    battery_label = lv_label_create(nav_screen);
-    datetime_label = lv_label_create(nav_screen);
-    bat_img = lv_img_create(nav_screen);
-    low_bat_img = lv_img_create(nav_screen);
-    charging_img = lv_img_create(nav_screen);
+    lv_obj_set_size(M5DisplayUI.main_screen,SCREEN_WIDTH,SCREEN_HEIGHT);
+    lv_obj_center(M5DisplayUI.main_screen);
+    lv_obj_set_flex_flow(M5DisplayUI.main_screen,LV_FLEX_FLOW_COLUMN);
+    lv_obj_set_size(M5DisplayUI.nav_screen,SCREEN_WIDTH,30);
+    
+    M5DisplayUI.battery_label = lv_label_create(M5DisplayUI.nav_screen);
+    M5DisplayUI.datetime_label = lv_label_create(M5DisplayUI.nav_screen);
+    M5DisplayUI.bat_img = lv_img_create(M5DisplayUI.nav_screen);
+    M5DisplayUI.low_bat_img = lv_img_create(M5DisplayUI.nav_screen);
+    M5DisplayUI.charging_img = lv_img_create(M5DisplayUI.nav_screen);
     if(M5.Axp.GetAPSVoltage() > 4.9)
     {
-      lv_image_set_src(charging_img,&charging);
-      lv_obj_align(charging_img,LV_ALIGN_RIGHT_MID,0,0);
+      lv_image_set_src(M5DisplayUI.charging_img,&charging);
+      lv_obj_align(M5DisplayUI.charging_img,LV_ALIGN_RIGHT_MID,0,0);
     }
     else if(battery_percentage < 30)
     {
-      lv_image_set_src(low_bat_img,&low_battery);
-      lv_obj_align(low_bat_img,LV_ALIGN_RIGHT_MID,0,0);   
+      lv_image_set_src(M5DisplayUI.low_bat_img,&low_battery);
+      lv_obj_align(M5DisplayUI.low_bat_img,LV_ALIGN_RIGHT_MID,0,0);   
     }
     else
     {
-      lv_image_set_src(bat_img,&battery_icon);
-      lv_obj_align(bat_img,LV_ALIGN_RIGHT_MID,0,0);
+      lv_image_set_src(M5DisplayUI.bat_img,&battery_icon);
+      lv_obj_align(M5DisplayUI.bat_img,LV_ALIGN_RIGHT_MID,0,0);
     }
     
     
-    snprintf(bat, sizeof(bat),"%d",battery_percentage);
-    lv_obj_align(battery_label,LV_ALIGN_RIGHT_MID,-30,0);
-    lv_obj_align(datetime_label,LV_ALIGN_LEFT_MID,0,0);
+    snprintf(M5DisplayUI.bat, sizeof(M5DisplayUI.bat),"%d",battery_percentage);
+    lv_obj_align(M5DisplayUI.battery_label,LV_ALIGN_RIGHT_MID,-30,0);
+    lv_obj_align(M5DisplayUI.datetime_label,LV_ALIGN_LEFT_MID,0,0);
     
-    lv_obj_set_style_pad_all(nav_screen,0,LV_PART_MAIN);
-    lv_obj_set_style_pad_all(main_screen,0,LV_PART_MAIN);
-    lv_obj_set_style_margin_all(nav_screen,0,LV_PART_MAIN);
-    lv_obj_set_style_bg_color(main_screen, lv_color_hex(0x98a3a2), LV_PART_MAIN);
-    lv_obj_set_style_bg_color(nav_screen, lv_color_hex(0x000000), LV_PART_MAIN);
-    lv_obj_set_style_text_color(nav_screen, lv_color_hex(0xffffff), LV_PART_MAIN);
-    lv_label_set_text_fmt(battery_label,"%s%%", bat);
+    for(int i = 0; i < 10; i++){
+      lv_obj_set_flex_flow(M5DisplayUI.main_screen,LV_FLEX_FLOW_ROW_WRAP);
+      M5DisplayUI.settings_icon = lv_button_create(M5DisplayUI.main_screen);
+    M5DisplayUI.button_text = lv_label_create(M5DisplayUI.settings_icon);
+    lv_obj_align(M5DisplayUI.button_text,LV_ALIGN_CENTER,0,0);
+    lv_label_set_text(M5DisplayUI.button_text,"Setting");
+    lv_obj_set_size(M5DisplayUI.settings_icon,80,50);
+    }
+  
+    
+    lv_obj_set_style_pad_all(M5DisplayUI.nav_screen,0,LV_PART_MAIN);
+    lv_obj_set_style_pad_all(M5DisplayUI.main_screen,0,LV_PART_MAIN);
+    lv_obj_set_style_margin_all(M5DisplayUI.nav_screen,0,LV_PART_MAIN);
+    lv_obj_set_style_bg_color(M5DisplayUI.main_screen, lv_color_hex(0x98a3a2), LV_PART_MAIN);
+    lv_obj_set_style_bg_color(M5DisplayUI.nav_screen, lv_color_hex(0x000000), LV_PART_MAIN);
+    lv_obj_set_style_text_color(M5DisplayUI.nav_screen, lv_color_hex(0xffffff), LV_PART_MAIN);
+    lv_label_set_text_fmt(M5DisplayUI.battery_label,"%s%%", M5DisplayUI.bat);
     M5.Rtc.GetTime(&time_t);
     lv_label_set_text_fmt(
-      datetime_label,"%02d : %02d : %02d %s", 
+      M5DisplayUI.datetime_label,"%02d : %02d : %02d %s", 
       time_t.Hours>12?time_t.Hours-12:time_t.Hours, 
       time_t.Minutes, 
       time_t.Seconds,
@@ -115,8 +132,9 @@ void screen_update(lv_timer_t *timer)
 }
 
 void drawUI(){
+  
   lv_timer_t *timer = lv_timer_create(screen_update,1000,nullptr);  
-  free(bat);
+  free(M5DisplayUI.bat);
 }
 
 void setupLVGL(){
