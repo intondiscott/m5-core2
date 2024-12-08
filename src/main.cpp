@@ -1,13 +1,16 @@
 #include <Arduino.h>
 #include <lvgl.h>
 #include <M5Core2.h>
+#include <battery_icon.h>
+#include <low_battery.h>
+#include <charging.h>
 
 M5Display tft;
 
 const int SCREEN_WIDTH = 320;
 const int SCREEN_HEIGHT = 240;
 unsigned long lastTickMillis = 0;
-char *bat = (char*)malloc(1*sizeof(char));
+char *bat = (char*)malloc(sizeof(char));
  
 void my_touch_read(lv_indev_t *indev_driver,lv_indev_data_t *data)
 {
@@ -55,10 +58,15 @@ void screen_update(lv_timer_t *timer)
              *nav_screen,
              *battery_label,
              *datetime_label,
-             *bat_img; 
+             *bat_img,
+             *low_bat_img,
+             *charging_img;
+
     main_screen = lv_obj_create(lv_screen_active()); 
     nav_screen = lv_obj_create(main_screen);
-    
+    LV_IMAGE_DECLARE(battery_icon);
+    LV_IMAGE_DECLARE(low_battery);
+    LV_IMAGE_DECLARE(charging);
     lv_obj_set_size(main_screen,SCREEN_WIDTH,SCREEN_HEIGHT);
     lv_obj_center(main_screen);
     lv_obj_set_flex_flow(main_screen,LV_FLEX_FLOW_ROW);
@@ -67,15 +75,35 @@ void screen_update(lv_timer_t *timer)
     battery_label = lv_label_create(nav_screen);
     datetime_label = lv_label_create(nav_screen);
     bat_img = lv_img_create(nav_screen);
-    lv_image_set_src(bat_img,"/assets/IMG_4397.c");
+    low_bat_img = lv_img_create(nav_screen);
+    charging_img = lv_img_create(nav_screen);
+    if(M5.Axp.GetAPSVoltage() > 4.9)
+    {
+      lv_image_set_src(charging_img,&charging);
+      lv_obj_align(charging_img,LV_ALIGN_RIGHT_MID,0,0);
+    }
+    else if(battery_percentage < 30)
+    {
+      lv_image_set_src(low_bat_img,&low_battery);
+      lv_obj_align(low_bat_img,LV_ALIGN_RIGHT_MID,0,0);   
+    }
+    else
+    {
+      lv_image_set_src(bat_img,&battery_icon);
+      lv_obj_align(bat_img,LV_ALIGN_RIGHT_MID,0,0);
+    }
+    
+    
     snprintf(bat, sizeof(bat),"%d",battery_percentage);
-    lv_obj_align(battery_label,LV_ALIGN_RIGHT_MID,0,0);
+    lv_obj_align(battery_label,LV_ALIGN_RIGHT_MID,-30,0);
     lv_obj_align(datetime_label,LV_ALIGN_LEFT_MID,0,0);
-    lv_obj_align(bat_img,LV_ALIGN_CENTER,0,0);
+    
     lv_obj_set_style_pad_all(nav_screen,0,LV_PART_MAIN);
     lv_obj_set_style_pad_all(main_screen,0,LV_PART_MAIN);
     lv_obj_set_style_margin_all(nav_screen,0,LV_PART_MAIN);
-    lv_obj_set_style_bg_color(main_screen, lv_color_hex(0x6b8bbf), LV_PART_MAIN);
+    lv_obj_set_style_bg_color(main_screen, lv_color_hex(0x98a3a2), LV_PART_MAIN);
+    lv_obj_set_style_bg_color(nav_screen, lv_color_hex(0x000000), LV_PART_MAIN);
+    lv_obj_set_style_text_color(nav_screen, lv_color_hex(0xffffff), LV_PART_MAIN);
     lv_label_set_text_fmt(battery_label,"%s%%", bat);
     M5.Rtc.GetTime(&time_t);
     lv_label_set_text_fmt(
@@ -87,8 +115,7 @@ void screen_update(lv_timer_t *timer)
 }
 
 void drawUI(){
-  
-  lv_timer_t *timer = lv_timer_create(screen_update,1000,nullptr); 
+  lv_timer_t *timer = lv_timer_create(screen_update,1000,nullptr);  
   free(bat);
 }
 
@@ -109,7 +136,7 @@ void setupLVGL(){
   lv_indev_set_read_cb(indev, my_touch_read);
 
   drawUI();  
-   
+  
 
 }
 
@@ -118,7 +145,7 @@ void setup() {
   Serial.begin(115200);
 
   M5.begin();
-  M5.Rtc.begin();
+ 
   tft.setRotation(1);
   
   tft.setBrightness(200);
