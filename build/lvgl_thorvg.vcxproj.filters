@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgAccessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgAnimation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgCanvas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgCapi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgCompressor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgFill.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgGlCanvas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgInitializer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgLines.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgLottieAnimation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgLottieBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgLottieExpressions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgLottieInterpolator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgLottieLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgLottieModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgLottieParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgLottieParserHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgMath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgPaint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgPicture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgRawLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgRender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgSaver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgShape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgStr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgSvgCssStyle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgSvgLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgSvgPath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgSvgSceneBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgSvgUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgSwCanvas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgSwFill.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgSwImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgSwMath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgSwMemPool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgSwRaster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgSwRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgSwRle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgSwShape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgSwStroke.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgTaskScheduler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgWgCanvas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\libs\thorvg\tvgXmlParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\src\others\vg_lite_tvg\vg_lite_tvg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{8BDF8C96-A62F-3CB4-94EC-7CCD2863A900}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

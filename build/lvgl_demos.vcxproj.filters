@@ -1,0 +1,373 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\benchmark\assets\img_benchmark_avatar.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\benchmark\assets\img_benchmark_cogwheel_alpha256.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\benchmark\assets\img_benchmark_cogwheel_argb.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\benchmark\assets\img_benchmark_cogwheel_indexed16.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\benchmark\assets\img_benchmark_cogwheel_rgb.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\benchmark\assets\lv_font_benchmark_montserrat_12_compr_az.c.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\benchmark\assets\lv_font_benchmark_montserrat_16_compr_az.c.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\benchmark\assets\lv_font_benchmark_montserrat_28_compr_az.c.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\benchmark\lv_demo_benchmark.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\flex_layout\lv_demo_flex_layout_ctrl_pad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\flex_layout\lv_demo_flex_layout_flex_loader.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\flex_layout\lv_demo_flex_layout_main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\flex_layout\lv_demo_flex_layout_view.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\flex_layout\lv_demo_flex_layout_view_child_node.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\flex_layout\lv_demo_flex_layout_view_ctrl_pad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\keypad_encoder\lv_demo_keypad_encoder.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\lv_demos.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_10.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_11.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_12.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_13.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_14.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_15.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_16.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_17.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_18.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_19.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_22.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_25.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_4.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_5.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_6.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_7.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_8.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\avatars\img_multilang_avatar_9.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\emojis\img_emoji_artist_palette.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\emojis\img_emoji_books.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\emojis\img_emoji_camera_with_flash.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\emojis\img_emoji_cat_face.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\emojis\img_emoji_deciduous_tree.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\emojis\img_emoji_dog_face.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\emojis\img_emoji_earth_globe_europe_africa.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\emojis\img_emoji_flexed_biceps.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\emojis\img_emoji_movie_camera.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\emojis\img_emoji_red_heart.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\emojis\img_emoji_rocket.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\emojis\img_emoji_soccer_ball.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\fonts\font_multilang_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\fonts\font_multilang_small.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\assets\img_multilang_like.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\multilang\lv_demo_multilang.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_btn_corner_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_btn_list_pause.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_btn_list_pause_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_btn_list_play.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_btn_list_play_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_btn_loop.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_btn_loop_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_btn_next.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_btn_next_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_btn_pause.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_btn_pause_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_btn_play.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_btn_play_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_btn_prev.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_btn_prev_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_btn_rnd.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_btn_rnd_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_corner_left.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_corner_left_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_corner_right.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_corner_right_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_cover_1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_cover_1_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_cover_2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_cover_2_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_cover_3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_cover_3_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_icon_1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_icon_1_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_icon_2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_icon_2_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_icon_3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_icon_3_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_icon_4.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_icon_4_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_list_border.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_list_border_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_logo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_slider_knob.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_slider_knob_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_wave_bottom.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_wave_bottom_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_wave_top.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\assets\img_lv_demo_music_wave_top_large.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\lv_demo_music.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\lv_demo_music_list.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\music\lv_demo_music_main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\render\assets\img_render_arc_bg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\render\assets\img_render_lvgl_logo_argb8888.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\render\assets\img_render_lvgl_logo_i1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\render\assets\img_render_lvgl_logo_l8.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\render\assets\img_render_lvgl_logo_rgb565.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\render\assets\img_render_lvgl_logo_rgb888.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\render\assets\img_render_lvgl_logo_xrgb8888.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\render\lv_demo_render.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\scroll\lv_demo_scroll.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\stress\lv_demo_stress.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\transform\assets\img_transform_avatar_15.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\transform\lv_demo_transform.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\vector_graphic\assets\img_demo_vector_avatar.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\vector_graphic\lv_demo_vector_graphic.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\widgets\assets\img_clothes.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\widgets\assets\img_demo_widgets_avatar.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\widgets\assets\img_demo_widgets_needle.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\widgets\assets\img_lvgl_logo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\demos\widgets\lv_demo_widgets.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\inton\OneDrive\Desktop\m5-core2\lib\lvgl\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{8BDF8C96-A62F-3CB4-94EC-7CCD2863A900}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

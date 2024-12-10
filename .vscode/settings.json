@@ -286,5 +286,5 @@
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
-  "cmake.ignoreCMakeListsMissing": true
+  "cmake.sourceDirectory": "C:/Users/inton/OneDrive/Desktop/m5-core2/lib/lvgl"
 }
