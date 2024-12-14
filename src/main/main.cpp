@@ -1,18 +1,22 @@
 #include <Arduino.h>
+#include <WiFi.h>
 #include <lvgl.h>
 #include <M5Core2.h>
-#include <battery_icon.h>
-#include <low_battery.h>
-#include <charging.h>
+#include <vector>
 
-M5Display tft;
-
-const int SCREEN_WIDTH = 320;
-const int SCREEN_HEIGHT = 240;
+TaskHandle_t lvglTaskHandler, sensorTaskHandler, wifiTaskHandler;
+#define SCREEN_WIDTH 320
+#define SCREEN_HEIGHT 240
 unsigned long lastTickMillis = 0;
 
- 
+const char* ssid = "kingpin";
+const char* password = "florafan87";
+std::vector<String> wifi_names;
+RTC_TimeTypeDef TimeStruct;
+
 struct {
+          M5Display tft;
+          
           lv_obj_t 
               *main_screen,
               *nav_screen,
@@ -22,14 +26,15 @@ struct {
               *low_bat_img,
               *button_text,
               *charging_img,
-              *icons[6];
+              *icons[6],
+              *connection_status;
           char bat[4];
-} M5DisplayUI;   
+} static M5DisplayUI;   
 void my_touch_read(lv_indev_t *indev_driver,lv_indev_data_t *data)
 {
-  uint16_t touchX, touchY;
+   uint16_t touchX, touchY;
   
-  bool touch = tft.getTouch(&touchX, &touchY);
+  bool touch = M5DisplayUI.tft.getTouch(&touchX, &touchY);
     
   if(!touch){
     data->state = LV_INDEV_STATE_RELEASED;
@@ -46,12 +51,12 @@ void my_disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *color_p)
 {
   
   //uint16_t *color_array_16 = (uint16_t *)color_p;
-  uint32_t w = (area->x2 - area->x1 + 1);
-  uint32_t h = (area->y2 - area->y1 + 1);
+  uint16_t w = (area->x2 - area->x1 + 1);
+  uint16_t h = (area->y2 - area->y1 + 1);
   
   
   lv_draw_sw_rgb565_swap(color_p, w*h);
-  tft.pushImage(area->x1,area->y1,w,h,(uint16_t*)color_p);
+  M5DisplayUI.tft.pushImage(area->x1,area->y1,w,h,(uint16_t*)color_p);
   
   
   lv_disp_flush_ready(disp);
@@ -61,40 +66,51 @@ void my_disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *color_p)
 /**
  * update info on m5 core2
  */
-void screen_update(lv_timer_t *timer)
+void screen_update()
 {
     //make time struct
-    RTC_TimeTypeDef time_t;
+    
     uint8_t battery_percentage = m5.Axp.GetBatteryLevel();
     
     snprintf(M5DisplayUI.bat, sizeof(M5DisplayUI.bat),"%d",battery_percentage);
-    
+    lv_label_set_text(M5DisplayUI.connection_status,WiFi.status() == WL_CONNECTED?"Connected..." : "Not Connected...");
     lv_label_set_text_fmt(M5DisplayUI.battery_label,"%s%%", M5DisplayUI.bat);
-    M5.Rtc.GetTime(&time_t);
+    M5.Rtc.GetTime(&TimeStruct);
     lv_label_set_text_fmt(
       M5DisplayUI.datetime_label,"%02d : %02d : %02d %s", 
-      time_t.Hours>12?time_t.Hours-12:time_t.Hours, 
-      time_t.Minutes, 
-      time_t.Seconds,
-      time_t.Hours >= 12? "PM":"AM");   
+      TimeStruct.Hours>12?TimeStruct.Hours-12:TimeStruct.Hours, 
+      TimeStruct.Minutes, 
+      TimeStruct.Seconds,
+      TimeStruct.Hours >= 12? "PM":"AM");   
 }
-
+void wifi_list_task(void *pvParams){
+  //lv_label_set_text(M5DisplayUI.wifi_list,"wifi");
+  while(1){
+    
+    
+   
+    vTaskDelay(3000);
+  } 
+    
+}
 void drawUI(){
-  
-  lv_timer_t *timer = lv_timer_create(screen_update,1000,nullptr); 
-  
   M5DisplayUI.main_screen = lv_obj_create(lv_screen_active()); 
   M5DisplayUI.nav_screen = lv_obj_create(M5DisplayUI.main_screen);
   M5DisplayUI.battery_label = lv_label_create(M5DisplayUI.nav_screen);
   M5DisplayUI.datetime_label = lv_label_create(M5DisplayUI.nav_screen);
-  for (int i = 0; i < 4; i++){
+  M5DisplayUI.connection_status = lv_label_create(M5DisplayUI.main_screen); 
+  lv_obj_center(M5DisplayUI.connection_status);
+  /*for (u_int8_t i = 0; i < 4; i++){
     M5DisplayUI.bat_bar[i] = lv_obj_create(M5DisplayUI.nav_screen);
     lv_obj_align(M5DisplayUI.bat_bar[i],LV_ALIGN_RIGHT_MID,-40+i*10,0);
-    
-    lv_obj_set_size(M5DisplayUI.bat_bar[i],10,20);
+    lv_list_add_button(M5DisplayUI.bat_bar[i],LV_SYMBOL_BATTERY_1,"");
+    lv_obj_set_size(M5DisplayUI.bat_bar[i],50,20);
     lv_obj_set_style_bg_color(M5DisplayUI.bat_bar[i],lv_color_hex(0x7175ab),0);
-  }
- 
+  }*/
+  M5DisplayUI.bat_bar[0] = lv_obj_create(M5DisplayUI.nav_screen);
+  lv_obj_align(M5DisplayUI.bat_bar[0],LV_ALIGN_RIGHT_MID,-10,0);
+  lv_obj_set_size(M5DisplayUI.bat_bar[0],40,20);
+  lv_list_add_button(M5DisplayUI.bat_bar[0],LV_SYMBOL_BATTERY_FULL,"");
   
   lv_obj_set_size(M5DisplayUI.main_screen,SCREEN_WIDTH,SCREEN_HEIGHT);
   lv_obj_center(M5DisplayUI.main_screen);
@@ -102,21 +118,30 @@ void drawUI(){
   lv_obj_set_size(M5DisplayUI.nav_screen,SCREEN_WIDTH,30);
   lv_obj_align(M5DisplayUI.battery_label,LV_ALIGN_RIGHT_MID,-60,0);
   lv_obj_align(M5DisplayUI.datetime_label,LV_ALIGN_LEFT_MID,0,0);
-    
-    
   
   lv_obj_set_style_pad_all(M5DisplayUI.nav_screen,0,LV_PART_MAIN);
   lv_obj_set_style_pad_all(M5DisplayUI.main_screen,0,LV_PART_MAIN);
   lv_obj_set_style_margin_all(M5DisplayUI.nav_screen,0,LV_PART_MAIN);
   lv_obj_set_style_bg_color(M5DisplayUI.main_screen, lv_color_hex(0x98a3a2), LV_PART_MAIN);
   lv_obj_set_style_bg_color(M5DisplayUI.nav_screen, lv_color_hex(0x948d8d), LV_PART_MAIN);
-  lv_obj_set_style_text_color(M5DisplayUI.nav_screen, lv_color_hex(0x000000), LV_PART_MAIN);
+  lv_obj_set_style_text_color(M5DisplayUI.nav_screen, lv_color_hex(0x000000), LV_PART_MAIN); 
+ 
+}
+void sensorsTask(void *pvParams){
+   
+   // WiFi.scanNetworks will return the number of networks found
+   while(1){
     
   
-
+  Serial.println("");
+  vTaskDelay(10000);
+   }
 }
 
-void setupLVGL(){
+void setupLVGL(void *pvParams){
+  M5.begin();
+  M5DisplayUI.tft.setBrightness(200);
+  M5DisplayUI.tft.setRotation(1);
   lv_init();
   
   static lv_color_t buf[SCREEN_WIDTH * 10];
@@ -131,32 +156,34 @@ void setupLVGL(){
   lv_indev_t * indev = lv_indev_create();           /*Create an input device*/
   lv_indev_set_type(indev, LV_INDEV_TYPE_POINTER);  /*Touch pad is a pointer-like device*/
   lv_indev_set_read_cb(indev, my_touch_read);
-
-  drawUI();  
   
-
+  drawUI(); 
+  while(1){
+    screen_update();
+    u_int8_t tickPeriod = millis() - lastTickMillis;
+  lv_tick_inc(tickPeriod);
+  lastTickMillis = millis();
+  lv_timer_handler();
+  vTaskDelay(1);
+  } 
 }
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-
-  M5.begin();
  
-  tft.setRotation(1);
-  
-  tft.setBrightness(200);
-  
-  setupLVGL();
-
-}
-
-void loop() {
-  //uint16_t touchX,touchY;
-  // put your main code here, to run repeatedly:
-  unsigned int tickPeriod = millis() - lastTickMillis;
-  lv_tick_inc(tickPeriod);
-  lastTickMillis = millis();
-  lv_timer_handler();
+  xTaskCreatePinnedToCore(setupLVGL,"setupLVGL",1024*10,NULL,3,&lvglTaskHandler,0);
+  xTaskCreatePinnedToCore(wifi_list_task,"wifi_list_task",1024*3,NULL,2,&wifiTaskHandler,1);
+  xTaskCreatePinnedToCore(sensorsTask,"sensorsTask",1024*3,NULL,1,&sensorTaskHandler,1);
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+  Serial.print("Connecting to WiFi ..");
+  while (WiFi.status() != WL_CONNECTED) {
+    Serial.print('.');
+    delay(1000);
+  }
+  Serial.println(WiFi.localIP());
   
 }
+
+void loop() {}
