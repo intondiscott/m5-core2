@@ -189,7 +189,7 @@ void setupLVGL(void *pvParams){
   drawUI(); 
   while(1){
     screen_update();
-    u_int8_t tickPeriod = millis() - lastTickMillis;
+    u_int8_t tickPeriod = millis() - lastTickMillis; 
   lv_tick_inc(tickPeriod);
   lastTickMillis = millis();
   lv_timer_handler();
