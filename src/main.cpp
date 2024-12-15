@@ -3,17 +3,24 @@
 #include <lvgl.h>
 #include <M5Core2.h>
 #include <vector>
-
+#include <HTTPClient.h>
+#include <ArduinoJson.h>
+#include <credentials.c>
 TaskHandle_t lvglTaskHandler, sensorTaskHandler, wifiTaskHandler;
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
 unsigned long lastTickMillis = 0;
 
-const char* ssid = "kingpin";
-const char* password = "florafan87";
+
 std::vector<String> wifi_names;
 RTC_TimeTypeDef TimeStruct;
 
+struct Weather {
+   float temperature = 0.0;
+};
+
+Weather *weather = new Weather;
+char weather_buffer[7];
 struct {
           M5Display tft;
           
@@ -27,7 +34,8 @@ struct {
               *button_text,
               *charging_img,
               *icons[6],
-              *connection_status;
+              *connection_status,
+              *temperature_label;
           char bat[4];
 } static M5DisplayUI;   
 void my_touch_read(lv_indev_t *indev_driver,lv_indev_data_t *data)
@@ -45,7 +53,6 @@ void my_touch_read(lv_indev_t *indev_driver,lv_indev_data_t *data)
     data->state = LV_INDEV_STATE_PRESSED;
   } 
 }
-
 
 void my_disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *color_p)
 {
@@ -74,6 +81,8 @@ void screen_update()
     
     snprintf(M5DisplayUI.bat, sizeof(M5DisplayUI.bat),"%d",battery_percentage);
     lv_label_set_text(M5DisplayUI.connection_status,WiFi.status() == WL_CONNECTED?"Connected..." : "Not Connected...");
+    snprintf(weather_buffer,sizeof(weather_buffer), "%3.2f",(weather->temperature - 273.15)*9/5+32);
+    lv_label_set_text_fmt(M5DisplayUI.temperature_label,"Temp: %s%%",weather_buffer);
     lv_label_set_text_fmt(M5DisplayUI.battery_label,"%s%%", M5DisplayUI.bat);
     M5.Rtc.GetTime(&TimeStruct);
     lv_label_set_text_fmt(
@@ -99,7 +108,9 @@ void drawUI(){
   M5DisplayUI.battery_label = lv_label_create(M5DisplayUI.nav_screen);
   M5DisplayUI.datetime_label = lv_label_create(M5DisplayUI.nav_screen);
   M5DisplayUI.connection_status = lv_label_create(M5DisplayUI.main_screen); 
+  M5DisplayUI.temperature_label = lv_label_create(M5DisplayUI.main_screen);
   lv_obj_center(M5DisplayUI.connection_status);
+  //weather->temperature = "No Data...";
   /*for (u_int8_t i = 0; i < 4; i++){
     M5DisplayUI.bat_bar[i] = lv_obj_create(M5DisplayUI.nav_screen);
     lv_obj_align(M5DisplayUI.bat_bar[i],LV_ALIGN_RIGHT_MID,-40+i*10,0);
@@ -132,8 +143,26 @@ void sensorsTask(void *pvParams){
    // WiFi.scanNetworks will return the number of networks found
    while(1){
     
+    if(WiFi.status() == WL_CONNECTED){
+        HTTPClient http;
+    String server_path = "https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=";
+    http.begin(server_path+SECRET_API_KEY);
+    int httpCode = http.GET();
+    if(httpCode > 0){
+      String payload = http.getString();
+      
+      JsonDocument doc;
+      deserializeJson(doc,payload);
+      weather->temperature = doc["main"]["temp"];
+      Serial.println(weather->temperature);
+    }
+    else{
+      Serial.println(httpCode);
+    }
+    http.end();
+    }
+    
   
-  Serial.println("");
   vTaskDelay(10000);
    }
 }
@@ -173,17 +202,16 @@ void setup() {
   Serial.begin(115200);
  
   xTaskCreatePinnedToCore(setupLVGL,"setupLVGL",1024*10,NULL,3,&lvglTaskHandler,0);
-  xTaskCreatePinnedToCore(wifi_list_task,"wifi_list_task",1024*3,NULL,2,&wifiTaskHandler,1);
-  xTaskCreatePinnedToCore(sensorsTask,"sensorsTask",1024*3,NULL,1,&sensorTaskHandler,1);
+  //xTaskCreatePinnedToCore(wifi_list_task,"wifi_list_task",1024*3,NULL,2,&wifiTaskHandler,1);
+  xTaskCreatePinnedToCore(sensorsTask,"sensorsTask",1024*5,NULL,1,&sensorTaskHandler,1);
   WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
+  WiFi.begin(SECRET_SSID, SECRET_PASSWORD);
   Serial.print("Connecting to WiFi ..");
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print('.');
     delay(1000);
   }
   Serial.println(WiFi.localIP());
-  
 }
 
 void loop() {}
