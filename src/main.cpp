@@ -5,7 +5,7 @@
 #include <vector>
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
-#include <credentials.c>
+#include "credentials.c"
 TaskHandle_t lvglTaskHandler, sensorTaskHandler, wifiTaskHandler;
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
@@ -146,7 +146,7 @@ void sensorsTask(void *pvParams){
     if(WiFi.status() == WL_CONNECTED){
         HTTPClient http;
     String server_path = "https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=";
-    http.begin(server_path+SECRET_API_KEY);
+    http.begin(server_path+MY_SECRET_API_KEY);
     int httpCode = http.GET();
     if(httpCode > 0){
       String payload = http.getString();
@@ -205,7 +205,7 @@ void setup() {
   //xTaskCreatePinnedToCore(wifi_list_task,"wifi_list_task",1024*3,NULL,2,&wifiTaskHandler,1);
   xTaskCreatePinnedToCore(sensorsTask,"sensorsTask",1024*5,NULL,1,&sensorTaskHandler,1);
   WiFi.mode(WIFI_STA);
-  WiFi.begin(SECRET_SSID, SECRET_PASSWORD);
+  WiFi.begin(MY_SECRET_SSID, MY_SECRET_PASSWORD);
   Serial.print("Connecting to WiFi ..");
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print('.');
