@@ -6,6 +6,11 @@
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 #include "credentials.c"
+#include <full_battery.h>
+#include <bat_two_bars.h>
+#include <low_bat.h>
+#include <critical_low_bat.h>
+#include <charging.h>
 TaskHandle_t lvglTaskHandler, sensorTaskHandler, wifiTaskHandler;
 #define SCREEN_WIDTH 320
 #define SCREEN_HEIGHT 240
@@ -16,7 +21,10 @@ std::vector<String> wifi_names;
 RTC_TimeTypeDef TimeStruct;
 
 struct Weather {
-   float temperature = 0.0;
+   float temperature = 255.372; //kelvin temp
+   int humidity = 0;
+   float wind_speed = 0.0;
+   std::string icon = "10d";
 };
 
 Weather *weather = new Weather;
@@ -29,13 +37,16 @@ struct {
               *nav_screen,
               *battery_label,
               *datetime_label,
-              *bat_bar[4],
+              //*bat_bar[4],
+              *bat_img,
               *low_bat_img,
               *button_text,
               *charging_img,
               *icons[6],
               *connection_status,
-              *temperature_label;
+              *temperature_label,
+              *wind_speed_label,
+              *humidity_label;
           char bat[4];
 } static M5DisplayUI;   
 void my_touch_read(lv_indev_t *indev_driver,lv_indev_data_t *data)
@@ -69,7 +80,6 @@ void my_disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *color_p)
   lv_disp_flush_ready(disp);
 }
 
-
 /**
  * update info on m5 core2
  */
@@ -82,7 +92,10 @@ void screen_update()
     snprintf(M5DisplayUI.bat, sizeof(M5DisplayUI.bat),"%d",battery_percentage);
     lv_label_set_text(M5DisplayUI.connection_status,WiFi.status() == WL_CONNECTED?"Connected..." : "Not Connected...");
     snprintf(weather_buffer,sizeof(weather_buffer), "%3.2f",(weather->temperature - 273.15)*9/5+32);
-    lv_label_set_text_fmt(M5DisplayUI.temperature_label,"Temp: %s%%",weather_buffer);
+    lv_label_set_text_fmt(M5DisplayUI.temperature_label,"Temp: %sF",weather_buffer);
+    lv_label_set_text_fmt(M5DisplayUI.humidity_label,"Hum: %d%%",weather->humidity);
+    snprintf(weather_buffer,sizeof(weather_buffer), "%3.2f",weather->wind_speed);
+    lv_label_set_text_fmt(M5DisplayUI.wind_speed_label,"Wind Speed: %s MPH", weather_buffer);
     lv_label_set_text_fmt(M5DisplayUI.battery_label,"%s%%", M5DisplayUI.bat);
     M5.Rtc.GetTime(&TimeStruct);
     lv_label_set_text_fmt(
@@ -90,7 +103,34 @@ void screen_update()
       TimeStruct.Hours>12?TimeStruct.Hours-12:TimeStruct.Hours, 
       TimeStruct.Minutes, 
       TimeStruct.Seconds,
-      TimeStruct.Hours >= 12? "PM":"AM");   
+      TimeStruct.Hours >= 12? "PM":"AM");  
+    if(M5.Axp.GetAPSVoltage() > 4.7) {
+      LV_IMAGE_DECLARE(charging);
+      lv_image_set_src(M5DisplayUI.bat_img,&charging);
+    }
+    else{
+      switch (battery_percentage)
+      {
+        case 80 ... 100:
+          LV_IMAGE_DECLARE(full_battery);
+          lv_image_set_src(M5DisplayUI.bat_img,&full_battery);
+          break;
+        case 40 ... 79:
+          LV_IMAGE_DECLARE(bat_two_bars);
+          lv_image_set_src(M5DisplayUI.bat_img,&bat_two_bars);
+          break;
+        case 15 ... 39:
+          LV_IMAGE_DECLARE(low_bat);
+          lv_image_set_src(M5DisplayUI.bat_img,&low_bat);
+          break;
+        case 0 ... 14:
+          LV_IMAGE_DECLARE(critical_low_bat);
+          lv_image_set_src(M5DisplayUI.bat_img,&critical_low_bat);
+          break;
+        default:
+          break;
+      } 
+    }
 }
 void wifi_list_task(void *pvParams){
   //lv_label_set_text(M5DisplayUI.wifi_list,"wifi");
@@ -103,25 +143,21 @@ void wifi_list_task(void *pvParams){
     
 }
 void drawUI(){
+  LV_IMAGE_DECLARE(critical_low_bat);
+  
   M5DisplayUI.main_screen = lv_obj_create(lv_screen_active()); 
   M5DisplayUI.nav_screen = lv_obj_create(M5DisplayUI.main_screen);
   M5DisplayUI.battery_label = lv_label_create(M5DisplayUI.nav_screen);
   M5DisplayUI.datetime_label = lv_label_create(M5DisplayUI.nav_screen);
   M5DisplayUI.connection_status = lv_label_create(M5DisplayUI.main_screen); 
   M5DisplayUI.temperature_label = lv_label_create(M5DisplayUI.main_screen);
+  M5DisplayUI.wind_speed_label = lv_label_create(M5DisplayUI.main_screen);
+  M5DisplayUI.humidity_label = lv_label_create(M5DisplayUI.main_screen);
+  M5DisplayUI.bat_img = lv_image_create(M5DisplayUI.nav_screen);
+  lv_obj_align(M5DisplayUI.bat_img, LV_ALIGN_RIGHT_MID,-10,0);
+
   lv_obj_center(M5DisplayUI.connection_status);
-  //weather->temperature = "No Data...";
-  /*for (u_int8_t i = 0; i < 4; i++){
-    M5DisplayUI.bat_bar[i] = lv_obj_create(M5DisplayUI.nav_screen);
-    lv_obj_align(M5DisplayUI.bat_bar[i],LV_ALIGN_RIGHT_MID,-40+i*10,0);
-    lv_list_add_button(M5DisplayUI.bat_bar[i],LV_SYMBOL_BATTERY_1,"");
-    lv_obj_set_size(M5DisplayUI.bat_bar[i],50,20);
-    lv_obj_set_style_bg_color(M5DisplayUI.bat_bar[i],lv_color_hex(0x7175ab),0);
-  }*/
-  M5DisplayUI.bat_bar[0] = lv_obj_create(M5DisplayUI.nav_screen);
-  lv_obj_align(M5DisplayUI.bat_bar[0],LV_ALIGN_RIGHT_MID,-10,0);
-  lv_obj_set_size(M5DisplayUI.bat_bar[0],40,20);
-  lv_list_add_button(M5DisplayUI.bat_bar[0],LV_SYMBOL_BATTERY_FULL,"");
+  
   
   lv_obj_set_size(M5DisplayUI.main_screen,SCREEN_WIDTH,SCREEN_HEIGHT);
   lv_obj_center(M5DisplayUI.main_screen);
@@ -135,17 +171,20 @@ void drawUI(){
   lv_obj_set_style_margin_all(M5DisplayUI.nav_screen,0,LV_PART_MAIN);
   lv_obj_set_style_bg_color(M5DisplayUI.main_screen, lv_color_hex(0x98a3a2), LV_PART_MAIN);
   lv_obj_set_style_bg_color(M5DisplayUI.nav_screen, lv_color_hex(0x948d8d), LV_PART_MAIN);
+  
+ 
   lv_obj_set_style_text_color(M5DisplayUI.nav_screen, lv_color_hex(0x000000), LV_PART_MAIN); 
+
  
 }
 void sensorsTask(void *pvParams){
    
-   // WiFi.scanNetworks will return the number of networks found
+   
    while(1){
     
     if(WiFi.status() == WL_CONNECTED){
         HTTPClient http;
-    String server_path = "https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=";
+    String server_path = "https://api.openweathermap.org/data/2.5/weather?lat=41.3165&lon=-73.0932&appid=";
     http.begin(server_path+MY_SECRET_API_KEY);
     int httpCode = http.GET();
     if(httpCode > 0){
@@ -154,7 +193,9 @@ void sensorsTask(void *pvParams){
       JsonDocument doc;
       deserializeJson(doc,payload);
       weather->temperature = doc["main"]["temp"];
-      Serial.println(weather->temperature);
+      weather->humidity = doc["main"]["humidity"];
+      weather->wind_speed = doc["wind"]["speed"];
+      Serial.println(payload);
     }
     else{
       Serial.println(httpCode);
@@ -201,9 +242,8 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
  
-  xTaskCreatePinnedToCore(setupLVGL,"setupLVGL",1024*10,NULL,3,&lvglTaskHandler,0);
-  //xTaskCreatePinnedToCore(wifi_list_task,"wifi_list_task",1024*3,NULL,2,&wifiTaskHandler,1);
-  xTaskCreatePinnedToCore(sensorsTask,"sensorsTask",1024*5,NULL,1,&sensorTaskHandler,1);
+  xTaskCreatePinnedToCore(setupLVGL,"setupLVGL",1024*10,NULL,2,&lvglTaskHandler,0);
+  xTaskCreatePinnedToCore(sensorsTask,"sensorsTask",1024*6,NULL,1,&wifiTaskHandler,1);
   WiFi.mode(WIFI_STA);
   WiFi.begin(MY_SECRET_SSID, MY_SECRET_PASSWORD);
   Serial.print("Connecting to WiFi ..");
