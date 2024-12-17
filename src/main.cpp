@@ -9,6 +9,7 @@
 #include <full_battery.h>
 #include <bat_two_bars.h>
 #include <low_bat.h>
+#include <10d@2x.h>
 #include <critical_low_bat.h>
 #include <charging.h>
 TaskHandle_t lvglTaskHandler, sensorTaskHandler, wifiTaskHandler;
@@ -44,6 +45,7 @@ struct {
               *charging_img,
               *icons[6],
               *connection_status,
+              *weather_conditions,
               *temperature_label,
               *wind_speed_label,
               *humidity_label;
@@ -143,7 +145,7 @@ void wifi_list_task(void *pvParams){
     
 }
 void drawUI(){
-  LV_IMAGE_DECLARE(critical_low_bat);
+  LV_IMAGE_DECLARE(a10d);
   
   M5DisplayUI.main_screen = lv_obj_create(lv_screen_active()); 
   M5DisplayUI.nav_screen = lv_obj_create(M5DisplayUI.main_screen);
@@ -154,6 +156,8 @@ void drawUI(){
   M5DisplayUI.wind_speed_label = lv_label_create(M5DisplayUI.main_screen);
   M5DisplayUI.humidity_label = lv_label_create(M5DisplayUI.main_screen);
   M5DisplayUI.bat_img = lv_image_create(M5DisplayUI.nav_screen);
+  M5DisplayUI.weather_conditions = lv_image_create(M5DisplayUI.main_screen);
+  lv_image_set_src(M5DisplayUI.weather_conditions,&a10d);
   lv_obj_align(M5DisplayUI.bat_img, LV_ALIGN_RIGHT_MID,-10,0);
 
   lv_obj_center(M5DisplayUI.connection_status);
