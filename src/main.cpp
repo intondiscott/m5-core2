@@ -192,12 +192,14 @@ void sensorsTask(void *pvParams)
       
       String server_path1 = "https://api.openweathermap.org/data/2.5/weather?lat=41.3165&lon=-73.0932&appid=";
       String update = "{\"device_status\":\"ONLINE\"}";
+      String battery = "{\"pin1\":\"" + (String)M5DisplayUI.bat +"\"}";
       http1.begin(server_path1 + MY_SECRET_API_KEY);
-      http2.begin("http://192.168.0.115:8080/api/v1/devices/2");
-      http3.begin("http://192.168.0.223:8080/api/v1/devices/8");
+      http2.begin("http://192.168.0.114:8080/api/v1/devices/2");
+      http3.begin("http://192.168.0.223:8080/api/v1/devices/2");
       http2.addHeader("Content-type", "application/json");
       http3.addHeader("Content-type", "application/json");
       http2.PUT(update);
+      http2.PUT(battery);
       http3.PUT(update);
       int httpCode = http1.GET();
 
