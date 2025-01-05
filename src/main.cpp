@@ -25,7 +25,7 @@ struct Weather
   float temperature = 255.372; // kelvin temp
   int humidity = 0;
   float wind_speed = 0.0;
-  std::string icon = "10d";
+  char icon[5];
 };
 
 Weather *weather = new Weather;
@@ -39,7 +39,7 @@ struct
       *nav_screen,
       *battery_label,
       *datetime_label,
-      //*bat_bar[4],
+      *bat_bar,
       *bat_img,
       *low_bat_img,
       *button_text,
@@ -100,6 +100,7 @@ void screen_update()
   snprintf(weather_buffer, sizeof(weather_buffer), "%3.2f", weather->wind_speed);
   lv_label_set_text_fmt(M5DisplayUI.wind_speed_label, "Wind Speed: %s MPH", weather_buffer);
   lv_label_set_text_fmt(M5DisplayUI.battery_label, "%s%%", M5DisplayUI.bat);
+  lv_label_set_text(M5DisplayUI.bat_bar, weather->icon);
   M5.Rtc.GetTime(&TimeStruct);
   lv_label_set_text_fmt(
       M5DisplayUI.datetime_label, "%02d : %02d : %02d %s",
@@ -137,18 +138,64 @@ void screen_update()
     }
   }
 }
-void wifi_list_task(void *pvParams)
+void sensorsTask(void *pvParams)
 {
   // lv_label_set_text(M5DisplayUI.wifi_list,"wifi");
   while (1)
   {
 
-    vTaskDelay(3000);
+    while (1)
+    {
+
+      if (WiFi.status() == WL_CONNECTED)
+      {
+        HTTPClient http2, http3;
+        float x, y, z;
+        String update = "\"device_status\":\"ONLINE\",";
+        String battery = "\"pin1\":\"" + (String)M5DisplayUI.bat + "\",";
+        String charging = "\"pin2\":\"" + (String)M5.Axp.GetAPSVoltage() + "\",";
+        String chip_temp = "\"pin3\":\"" + (String)M5.Axp.GetTempInAXP192() + "\"";
+
+        http2.begin("http://192.168.0.114:8080/api/v1/devices/2");
+        http3.begin("http://192.168.0.223:8080/api/v1/devices/2");
+        http2.addHeader("Content-type", "application/json");
+        http3.addHeader("Content-type", "application/json");
+        http2.PUT(
+            "{" +
+            update +
+            battery +
+            charging +
+            chip_temp +
+            "}");
+        http3.PUT(
+            "{" +
+            update +
+            battery +
+            charging +
+            chip_temp +
+            "}");
+
+        http2.end();
+        http3.end();
+      }
+      else
+      {
+        WiFi.mode(WIFI_STA);
+        WiFi.begin(MY_SECRET_SSID, MY_SECRET_PASSWORD);
+        Serial.print("Connecting to WiFi ..");
+        while (WiFi.status() != WL_CONNECTED)
+        {
+          Serial.print('.');
+          delay(1000);
+        }
+        Serial.println(WiFi.localIP());
+      }
+      vTaskDelay(2);
+    }
   }
 }
 void drawUI()
 {
-  LV_IMAGE_DECLARE(a10d);
 
   M5DisplayUI.main_screen = lv_obj_create(lv_screen_active());
   M5DisplayUI.nav_screen = lv_obj_create(M5DisplayUI.main_screen);
@@ -160,7 +207,8 @@ void drawUI()
   M5DisplayUI.humidity_label = lv_label_create(M5DisplayUI.main_screen);
   M5DisplayUI.bat_img = lv_image_create(M5DisplayUI.nav_screen);
   M5DisplayUI.weather_conditions = lv_image_create(M5DisplayUI.main_screen);
-  lv_image_set_src(M5DisplayUI.weather_conditions, &a10d);
+  M5DisplayUI.bat_bar = lv_label_create(M5DisplayUI.main_screen);
+
   lv_obj_align(M5DisplayUI.bat_img, LV_ALIGN_RIGHT_MID, -10, 0);
 
   lv_obj_center(M5DisplayUI.connection_status);
@@ -180,7 +228,7 @@ void drawUI()
 
   lv_obj_set_style_text_color(M5DisplayUI.nav_screen, lv_color_hex(0x000000), LV_PART_MAIN);
 }
-void sensorsTask(void *pvParams)
+void wifiTask(void *pvParams)
 {
 
   while (1)
@@ -188,40 +236,40 @@ void sensorsTask(void *pvParams)
 
     if (WiFi.status() == WL_CONNECTED)
     {
-      HTTPClient http1, http2, http3;
-      
+      HTTPClient http1;
+
       String server_path1 = "https://api.openweathermap.org/data/2.5/weather?lat=41.3165&lon=-73.0932&appid=";
-      String update = "{\"device_status\":\"ONLINE\"}";
-      String battery = "{\"pin1\":\"" + (String)M5DisplayUI.bat +"\"}";
+
       http1.begin(server_path1 + MY_SECRET_API_KEY);
-      http2.begin("http://192.168.0.114:8080/api/v1/devices/2");
-      http3.begin("http://192.168.0.223:8080/api/v1/devices/2");
-      http2.addHeader("Content-type", "application/json");
-      http3.addHeader("Content-type", "application/json");
-      http2.PUT(update);
-      http2.PUT(battery);
-      http3.PUT(update);
+
       int httpCode = http1.GET();
 
-     if(httpCode > 0){
-      String payload = http1.getString();
-      
-      JsonDocument doc;
-      deserializeJson(doc,payload);
-      weather->temperature = doc["main"]["temp"];
-      weather->humidity = doc["main"]["humidity"];
-      weather->wind_speed = doc["wind"]["speed"];
-      Serial.println(payload);
-      
-      
-      
-    }
-    else{
-      Serial.println(httpCode);
-    }
-    http1.end();
-    http2.end();
-    http3.end();
+      if (httpCode > 0)
+      {
+        String payload = http1.getString();
+
+        JsonDocument doc;
+        deserializeJson(doc, payload);
+        weather->temperature = doc["main"]["temp"];
+        weather->humidity = doc["main"]["humidity"];
+        weather->wind_speed = doc["wind"]["speed"];
+
+        Serial.println(payload);
+      }
+      else
+      {
+        Serial.println(httpCode);
+        WiFi.mode(WIFI_STA);
+        WiFi.begin(MY_SECRET_SSID, MY_SECRET_PASSWORD);
+        Serial.print("Connecting to WiFi ..");
+        while (WiFi.status() != WL_CONNECTED)
+        {
+          Serial.print('.');
+          delay(1000);
+        }
+        Serial.println(WiFi.localIP());
+      }
+      http1.end();
     }
     vTaskDelay(10000);
   }
@@ -264,17 +312,9 @@ void setup()
   // put your setup code here, to run once:
   Serial.begin(115200);
 
-  xTaskCreatePinnedToCore(setupLVGL, "setupLVGL", 1024 * 10, NULL, 2, &lvglTaskHandler, 0);
-  xTaskCreatePinnedToCore(sensorsTask, "sensorsTask", 1024 * 6, NULL, 1, &wifiTaskHandler, 1);
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(MY_SECRET_SSID, MY_SECRET_PASSWORD);
-  Serial.print("Connecting to WiFi ..");
-  while (WiFi.status() != WL_CONNECTED)
-  {
-    Serial.print('.');
-    delay(1000);
-  }
-  Serial.println(WiFi.localIP());
+  xTaskCreatePinnedToCore(setupLVGL, "setupLVGL", 1024 * 10, NULL, 3, &lvglTaskHandler, 0);
+  xTaskCreatePinnedToCore(wifiTask, "wifiTask", 1024 * 6, NULL, 2, &wifiTaskHandler, 1);
+  xTaskCreatePinnedToCore(sensorsTask, "sensorsTask", 1024 * 6, NULL, 1, &sensorTaskHandler, 1);
 }
 
 void loop() {}
